@@ -12,7 +12,7 @@ class App extends React.Component {
     const { input } = this.state;
     this.setState({ loading: true })
     const response = await fetch(`https://cephalatar.herokuapp.com/${input}`);
-    const image = await response.blob();
+    const image = await response.text();
     console.log({ image })
     this.setState({ loading: false, image });
   }
@@ -22,7 +22,7 @@ class App extends React.Component {
     return (
       <div className="App" >
         <header className="App-header">
-          <img src={logo || image} className="App-logo" alt="logo" />
+          <img src={image || logo} className="App-logo" alt="logo" />
           <div><input placeholder="Enter a string" value={input} onChange={e => this.setState({ input: e.currentTarget.value })} /></div>
           {loading ? <h2>...</h2> : <div>{input ? <button onClick={this.fetchCephalopod}>Get a Cephalopod</button> : ''}</div>}
         </header>
